@@ -10,20 +10,14 @@ import Json.Decode as Decode exposing (..)
 import Json.Encode as Encode exposing (..)
 
 
---Models
--- type alias Model =
---     { user : User
---     }
-
-
 type alias Model =
     { username : String
     , name : String
     , password : String
     , email : String
     , error : String
-    , nameServer : String
-    , emailServer : String
+    , token : String
+    , name_server : String
     }
 
 
@@ -49,6 +43,8 @@ type Msg
     | ClickRegisterUser
     | GetUserSuccess String
     | UserError Http.Error
+    | ClickLoginUser
+    | LoginSuccess String
 
 
 update : Msg -> Model -> ( Model, Cmd Msg )
@@ -69,15 +65,21 @@ update msg model =
         ClickRegisterUser ->
             ( model, registerUserCmd model registerUrl )
 
-        GetUserSuccess dado ->
+        GetUserSuccess token ->
             ( { model
-                | nameServer = dado
+                | token = token
               }
             , Cmd.none
             )
 
         UserError error ->
             ( { model | error = (toString error) }, Cmd.none )
+
+        ClickLoginUser ->
+            ( model, loginUserCmd model accessUrl )
+
+        LoginSuccess name ->
+            ( { model | name_server = name }, Cmd.none )
 
 
 
@@ -99,9 +101,9 @@ userEncoder model =
         ]
 
 
-userDecoder : Decoder String
-userDecoder =
-    "name" := Decode.string
+authDecoder : Decoder String
+authDecoder =
+    "token" := Decode.string
 
 
 registerUser : Model -> String -> Task Http.Error String
@@ -112,12 +114,51 @@ registerUser model registerUrl =
     , body = Http.string <| Encode.encode 0 <| userEncoder model
     }
         |> Http.send Http.defaultSettings
-        |> Http.fromJson userDecoder
+        |> Http.fromJson authDecoder
 
 
 registerUserCmd : Model -> String -> Cmd Msg
 registerUserCmd model apiUrl =
-    Task.perform UserError GetUserSuccess <| registerUser model apiUrl
+    Task.perform UserError LoginSuccess <| registerUser model apiUrl
+
+
+accessUrl : String
+accessUrl =
+    "http://localhost:8000/riw/users/1/"
+
+
+
+-- loginEncoder : Model -> Encode.Value
+-- loginEncoder model =
+--     Encode.object
+--         [ ( "token", Encode.string model.username )
+--         , ( "password", Encode.string model.password )
+--         ]
+
+
+nameDecoder : Decoder String
+nameDecoder =
+    let
+        a =
+            Debug.log (toString Decode.string)
+    in
+        "email" := Decode.string
+
+
+loginUser : Model -> String -> Task Http.Error String
+loginUser model accessUrl =
+    { verb = "GET"
+    , headers = [ ( "Authorization", "Token " ++ model.token ) ]
+    , url = accessUrl
+    , body = Http.empty
+    }
+        |> Http.send Http.defaultSettings
+        |> Http.fromJson nameDecoder
+
+
+loginUserCmd : Model -> String -> Cmd Msg
+loginUserCmd model apiUrl =
+    Task.perform UserError GetUserSuccess <| loginUser model apiUrl
 
 
 
@@ -142,6 +183,8 @@ view model =
             [ type' "password", onInput SetPassword, placeholder "Password" ]
             []
         , button [ onClick ClickRegisterUser ] [ text "Enviar" ]
+        , button [ onClick ClickLoginUser ] [ text "ver" ]
+        , p [] [ text (toString model) ]
         ]
 
 
