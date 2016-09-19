@@ -1,17 +1,28 @@
 {
   "name": "beginner",
   "version": "1.0.0",
-  "description": "",
+  "description": "Elm app for Read in Web course",
   "main": "bundle.js",
   "devDependencies": {
     "clear": "0.0.1",
     "gulp": "^3.9.1",
     "gulp-util": "^3.0.7",
-    "st": "^1.1.0"
+    "st": "^1.1.0",
+    "gulp-connect": "^4.0.0",
+    "gulp-elm": "^0.4.4",
+    "gulp-plumber": "^1.1.0"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mupi/readinweb-elm.git"
+  },
+  "bugs": {
+    "url": "https://github.com/mupi/readinweb-elm/issues"
+  },
+  "homepage": "https://github.com/mupi/readinweb-elm#readme"
 }
