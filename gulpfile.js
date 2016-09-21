@@ -14,7 +14,8 @@ var connect = require('gulp-connect');
 // File paths
 var paths = {
   dest: 'dist',
-  elm: 'src/*.elm'
+  elm: 'src/*.elm',
+  elmsrc: 'src/**/*.elm'
 };
 
 clear();
@@ -33,6 +34,7 @@ gulp.task('server', function(done) {
 
 gulp.task('watch', function(cb) {
   gulp.watch(paths.elm, ['elm']);
+  gulp.watch(paths.elmsrc, ['elm']);
 });
 
 gulp.task('elm', function(cb) {
