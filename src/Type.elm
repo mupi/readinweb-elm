@@ -1,13 +1,36 @@
 module Type exposing (..)
 
-import Cadastro.Type as Cadastro
+-- import HttpBuilder
+-- My modules
+
+import Register.Type as Register
+import User.Type as User
 
 
 type alias Model =
-    { cadastro : Cadastro.Model
-    , logic : Int
+    { register : Register.Model
+    , status : Status
+    , user : User.Model
     }
 
 
+type Status
+    = Register
+    | Login
+
+
+
+--
+-- type alias User =
+--     { username : String
+--     , name : String
+--     , password : String
+--     , email : String
+--     , token : String
+--     }
+
+
 type Msg
-    = CadastroMsg Cadastro.Msg
+    = ChangeStatus Status
+    | RegisterMsg Register.Msg
+    | LoginSuccess

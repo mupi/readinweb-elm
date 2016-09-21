@@ -4,16 +4,23 @@ import Html exposing (..)
 import Html.App
 import Html.Attributes exposing (..)
 import Type exposing (..)
-import Cadastro.View as Cadastro exposing (..)
 
 
--- import View
+-- My Modules
+
+import Register.View as Register exposing (..)
 
 
 view : Model -> Html Msg
 view model =
     div [ class "container" ]
         [ div [ class "jumbotron text-left" ]
-            [ Html.App.map CadastroMsg (Cadastro.registerForm model.cadastro)
+            [ case model.status of
+                Register ->
+                    Html.App.map RegisterMsg (Register.view model.register)
+
+                _ ->
+                    div [] []
             ]
+        , p [] [ text (toString model) ]
         ]

@@ -1,13 +1,17 @@
-module Cadastro.View exposing (..)
+module Register.View exposing (..)
 
 import Html exposing (..)
 import Html.Attributes exposing (..)
 import Html.Events exposing (..)
-import Cadastro.Type exposing (..)
 
 
-registerForm : Model -> Html Msg
-registerForm model =
+-- My Modules
+
+import Register.Type exposing (..)
+
+
+view : Model -> Html Msg
+view model =
     div [ id "form" ]
         [ h1 [ class "text-center" ]
             [ text "Readinweb" ]
@@ -38,7 +42,6 @@ registerForm model =
             ]
         , div [ class "text-center form-group row" ]
             [ button [ class "btn btn-primary", onClick ClickRegisterUser ] [ text "Cadastrar" ]
-            , button [ class "btn btn-link", onClick ClickLoginUser ] [ text "Ver" ]
+              -- , button [ class "btn btn-link", onClick ClickLoginUser ] [ text "Ver" ]
             ]
-        , p [] [ text (toString model) ]
         ]
