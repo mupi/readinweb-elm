@@ -1,14 +1,15 @@
 module Type exposing (..)
 
--- import HttpBuilder
 -- My modules
 
 import Register.Type as Register
 import User.Type as User
+import Login.Type as Login
 
 
 type alias Model =
     { register : Register.Model
+    , login : Login.Model
     , status : Status
     , user : User.Model
     }
@@ -16,21 +17,12 @@ type alias Model =
 
 type Status
     = Register
+    | About
     | Login
-
-
-
---
--- type alias User =
---     { username : String
---     , name : String
---     , password : String
---     , email : String
---     , token : String
---     }
 
 
 type Msg
     = ChangeStatus Status
     | RegisterMsg Register.Msg
+    | LoginMsg Login.Msg
     | LoginSuccess

@@ -6,15 +6,17 @@ import Type exposing (..)
 --My Modules
 
 import User.State as User
-import User.Type as User
 import Register.State as Register
 import Register.Type as Register
+import Login.State as Login
+import Login.Type as Login
 
 
 init : ( Model, Cmd Msg )
 init =
     ( Model Register.init
-        Register
+        Login.init
+        Login
         User.init
     , Cmd.none
     )
@@ -37,13 +39,29 @@ update msg model =
                         ( { model
                             | user = updated.user
                             , register = Register.init
-                            , status = Login
                           }
                         , Cmd.map RegisterMsg cmd
                         )
 
                     _ ->
                         ( { model | register = updated }, Cmd.map RegisterMsg cmd )
+
+        LoginMsg subMsg ->
+            let
+                ( updated, cmd ) =
+                    Login.update subMsg model.login
+            in
+                case subMsg of
+                    Login.LoginSuccess token ->
+                        ( { model
+                            | user = updated.user
+                            , login = Login.init
+                          }
+                        , Cmd.map LoginMsg cmd
+                        )
+
+                    _ ->
+                        ( { model | login = updated }, Cmd.map LoginMsg cmd )
 
         ChangeStatus status ->
             ( { model | status = status }, Cmd.none )

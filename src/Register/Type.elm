@@ -14,7 +14,6 @@ type Msg
     | SetName String
     | SetPassword String
     | ClickRegisterUser
-      -- | GetUserSuccess (HttpBuilder.Response String)
     | RegisterError (HttpBuilder.Error String)
     | RegisterSuccess (HttpBuilder.Response String)
 

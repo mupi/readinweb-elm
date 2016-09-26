@@ -5,7 +5,7 @@ import User.Type exposing (..)
 
 init : Model
 init =
-    Model "" "" "" "" ""
+    Model 0 "" "" "" "" ""
 
 
 update : Msg -> Model -> ( Model, Cmd Msg )
@@ -22,3 +22,6 @@ update msg model =
 
         SetPassword password ->
             ( { model | password = password }, Cmd.none )
+
+        SetToken token ->
+            ( { model | token = token }, Cmd.none )

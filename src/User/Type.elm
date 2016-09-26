@@ -2,7 +2,8 @@ module User.Type exposing (..)
 
 
 type alias Model =
-    { username : String
+    { userId : Int
+    , username : String
     , name : String
     , email : String
     , password : String
@@ -15,3 +16,4 @@ type Msg
     | SetEmail String
     | SetName String
     | SetPassword String
+    | SetToken String
