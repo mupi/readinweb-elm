@@ -19,7 +19,7 @@ var paths = {
 };
 
 clear();
-gulp.task('default', ['server', 'watch', 'elm']);
+gulp.task('default', ['server', 'watch', 'elm', 'elmsrc']);
 
 gulp.task('server', function(done) {
   gutil.log(gutil.colors.blue('Starting server at http://localhost:4000'));
@@ -39,6 +39,13 @@ gulp.task('watch', function(cb) {
 
 gulp.task('elm', function(cb) {
   return gulp.src(paths.elm)
+      .pipe(plumber())
+      .pipe(elm())
+      .pipe(gulp.dest(paths.dest));
+});
+
+gulp.task('elmsrc', function(cb) {
+  return gulp.src(paths.elmsrc)
       .pipe(plumber())
       .pipe(elm())
       .pipe(gulp.dest(paths.dest));
