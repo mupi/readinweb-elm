@@ -13,20 +13,18 @@ import Login.Type exposing (..)
 view : Model -> Html Msg
 view model =
     div [ id "form" ]
-        [ h1 [ class "text-center" ]
-            [ text "Readinweb" ]
-        , h2 [ class "text-center" ] [ text "Cadastrar-se" ]
+        [ h2 [ class "text-center" ] [ text "Login" ]
         , div [ class "form-group row" ]
             [ label [ for "username" ] [ text "Username:" ]
             , input
-                [ id "username", type' "text", class "form-control", onInput SetUsername, placeholder "Username" ]
-                []
+                [ id "username", type' "text", class "form-control", onInput SetUsername, placeholder "Username", value model.user.username ]
+                [ text model.user.username ]
             ]
         , div [ class "form-group row" ]
-            [ label [ for "password" ] [ text "password:" ]
+            [ label [ for "password" ] [ text "Senha:" ]
             , input
-                [ id "password", type' "password", class "form-control", onInput SetPassword, placeholder "Password" ]
-                []
+                [ id "password", type' "password", class "form-control", onInput SetPassword, placeholder "Senha", value model.user.password ]
+                [ text model.user.password ]
             ]
         , div [ class "text-center" ]
             [ p [ class "text-danger" ] [ text model.error ] ]
