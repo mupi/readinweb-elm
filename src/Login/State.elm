@@ -55,7 +55,10 @@ update msg model =
                 _ ->
                     ( model, Cmd.none )
 
-        LoginSuccess sucesso ->
+        GetUser token ->
+            ( model, getUserCmd token getUserUrl )
+
+        LoginSuccess token sucesso ->
             let
                 newUser : User.Model
                 newUser =
@@ -63,8 +66,8 @@ update msg model =
                     , username = sucesso.data.username
                     , name = sucesso.data.name
                     , email = sucesso.data.email
-                    , password = model.user.password
-                    , token = model.user.token
+                    , password = ""
+                    , token = token
                     }
             in
                 ( { model | user = newUser }, Cmd.none )
@@ -153,4 +156,4 @@ getUser token getUserUrl =
 
 getUserCmd : String -> String -> Cmd Msg
 getUserCmd token apiUrl =
-    Task.perform LoginError LoginSuccess <| getUser token apiUrl
+    Task.perform LoginError (LoginSuccess token) <| getUser token apiUrl

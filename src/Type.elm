@@ -19,6 +19,7 @@ type Status
     = Register
     | About
     | Login
+    | Index
 
 
 type Msg
@@ -26,3 +27,5 @@ type Msg
     | RegisterMsg Register.Msg
     | LoginMsg Login.Msg
     | LoginSuccess
+    | LoadToken (Maybe String)
+    | SaveToken

@@ -13,9 +13,10 @@ type Msg
     | SetPassword String
     | ClickLoginUser
     | LoginError (HttpBuilder.Error String)
-    | LoginSuccess (HttpBuilder.Response UserAux)
+    | LoginSuccess String (HttpBuilder.Response UserAux)
     | GetTokenError (HttpBuilder.Error String)
     | GetTokenSuccess (HttpBuilder.Response String)
+    | GetUser String
 
 
 type alias UserAux =

@@ -1,6 +1,7 @@
-module State exposing (init, update)
+port module State exposing (init, update, subscriptions)
 
 import Type exposing (..)
+import String
 
 
 --My Modules
@@ -14,12 +15,30 @@ import Login.Type as Login
 
 init : ( Model, Cmd Msg )
 init =
-    ( Model Register.init
-        Login.init
-        Login
-        User.init
-    , Cmd.none
-    )
+    let
+        initModel =
+            Model Register.init
+                Login.init
+                Login
+                User.init
+    in
+        ( initModel
+        , doLoadToken ()
+        )
+
+
+subscriptions : Model -> Sub Msg
+subscriptions model =
+    loadToken LoadToken
+
+
+port saveToken : String -> Cmd msg
+
+
+port doLoadToken : () -> Cmd msg
+
+
+port loadToken : (Maybe String -> msg) -> Sub msg
 
 
 
@@ -39,8 +58,9 @@ update msg model =
                         ( { model
                             | user = updated.user
                             , register = Register.init
+                            , status = Index
                           }
-                        , Cmd.map RegisterMsg cmd
+                        , Cmd.none
                         )
 
                     _ ->
@@ -52,19 +72,37 @@ update msg model =
                     Login.update subMsg model.login
             in
                 case subMsg of
-                    Login.LoginSuccess token ->
-                        ( { model
-                            | user = updated.user
-                            , login = Login.init
-                          }
-                        , Cmd.map LoginMsg cmd
-                        )
+                    Login.LoginSuccess token response ->
+                        let
+                            newModel =
+                                { model
+                                    | user = updated.user
+                                    , login = Login.init
+                                    , status = Index
+                                }
+                        in
+                            ( newModel, saveToken updated.user.token )
 
                     _ ->
                         ( { model | login = updated }, Cmd.map LoginMsg cmd )
 
         ChangeStatus status ->
             ( { model | status = status }, Cmd.none )
+
+        LoadToken tokenMaybe ->
+            case tokenMaybe of
+                Nothing ->
+                    ( model, Cmd.none )
+
+                Just token ->
+                    if String.isEmpty token then
+                        ( model, Cmd.none )
+                    else
+                        let
+                            ( loaded, cmd ) =
+                                Login.update (Login.GetUser token) model.login
+                        in
+                            ( model, Cmd.map LoginMsg cmd )
 
         _ ->
             ( model, Cmd.none )

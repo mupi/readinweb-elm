@@ -15,6 +15,15 @@
   <script src="dist/Main.js"></script>
   <script>
     var app = Elm.Main.embed(document.getElementById("app"));
+
+    var storageKey = "token";
+    app.ports.saveToken.subscribe(function(value) {
+      localStorage.setItem(storageKey, value);
+    });
+
+    app.ports.doLoadToken.subscribe(function() {
+      app.ports.loadToken.send(localStorage.getItem(storageKey));
+    });
   </script>
 </body>
 
