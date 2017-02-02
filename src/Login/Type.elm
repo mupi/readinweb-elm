@@ -1,33 +1,27 @@
 module Login.Type exposing (..)
 
-import HttpBuilder
-
-
--- My Modules
-
+import Http
 import User.Type as User
+
+
+type alias Model =
+    { user : User.Model
+    , username : String
+    , password : String
+    , token : String
+    , error : String
+    }
+
+
+type alias LoginModel =
+    { user : User.Model
+    , token : String
+    }
 
 
 type Msg
     = SetUsername String
     | SetPassword String
-    | ClickLoginUser
-    | LoginError (HttpBuilder.Error String)
-    | LoginSuccess String (HttpBuilder.Response UserAux)
-    | GetTokenError (HttpBuilder.Error String)
-    | GetTokenSuccess (HttpBuilder.Response String)
-    | GetUser String
-
-
-type alias UserAux =
-    { userId : Int
-    , name : String
-    , email : String
-    , username : String
-    }
-
-
-type alias Model =
-    { error : String
-    , user : User.Model
-    }
+    | Login
+    | OnFetchLogin (Result Http.Error LoginModel)
+    | NoOp

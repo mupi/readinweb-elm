@@ -5,9 +5,6 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Readinweb</title>
-  <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-  <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 </head>
 
 <body>
@@ -15,15 +12,6 @@
   <script src="dist/Main.js"></script>
   <script>
     var app = Elm.Main.embed(document.getElementById("app"));
-
-    var storageKey = "token";
-    app.ports.saveToken.subscribe(function(value) {
-      localStorage.setItem(storageKey, value);
-    });
-
-    app.ports.doLoadToken.subscribe(function() {
-      app.ports.loadToken.send(localStorage.getItem(storageKey));
-    });
   </script>
 </body>
 
