@@ -1,7 +1,7 @@
 module Type exposing (..)
 
--- My modules
-
+import Navigation exposing (Location)
+import Routing
 import User.Type as User
 import Login.Type as Login
 
@@ -9,6 +9,7 @@ import Login.Type as Login
 type alias Model =
     { user : User.Model
     , login : Login.Model
+    , route : Routing.Route
     }
 
 
@@ -19,3 +20,4 @@ type Status
 type Msg
     = UserMsg User.Msg
     | LoginMsg Login.Msg
+    | OnLocationChange Location

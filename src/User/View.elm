@@ -1,4 +1,4 @@
-module Login.View exposing (..)
+module User.View exposing (..)
 
 import Html exposing (..)
 import Html.Attributes exposing (id, type_, for, value, class)
