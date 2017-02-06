@@ -80,6 +80,7 @@ update msg model =
             let
                 newRoute =
                     parseLocation model.global.user location
+<<<<<<< c145ca3b6b3d82aded783fdd7b3730d07f1d7a36
 
                 ( newModel, cmd ) =
                     case newRoute of
@@ -92,6 +93,8 @@ update msg model =
 
                         _ ->
                             ( model, Cmd.none )
+=======
+>>>>>>> Add login/logout matchers in routing
             in
                 ( { newModel | route = newRoute }, cmd )
 

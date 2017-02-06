@@ -2,8 +2,13 @@ module App.Routing exposing (..)
 
 import Navigation exposing (Location)
 import UrlParser exposing (..)
+<<<<<<< c145ca3b6b3d82aded783fdd7b3730d07f1d7a36
 import User.Types as User
 import Question.Types as Question
+=======
+import User.Type as User
+import Debug
+>>>>>>> Add login/logout matchers in routing
 
 
 type Route
@@ -19,7 +24,10 @@ normalMatchers =
     oneOf
         [ map Index top
         , map Index (s "index")
+<<<<<<< c145ca3b6b3d82aded783fdd7b3730d07f1d7a36
         , map QuestionRoute (s "questions" </> int)
+=======
+>>>>>>> Add login/logout matchers in routing
         , map LoginRoute (s "login")
         ]
 
@@ -30,7 +38,10 @@ loginMatchers =
         [ map Index top
         , map Index (s "index")
         , map Index (s "login")
+<<<<<<< c145ca3b6b3d82aded783fdd7b3730d07f1d7a36
         , map QuestionRoute (s "questions" </> int)
+=======
+>>>>>>> Add login/logout matchers in routing
         , map UsersRoute (s "users")
         ]
 
