@@ -3,7 +3,7 @@ module Login.View exposing (..)
 import Html exposing (..)
 import Html.Attributes exposing (id, type_, for, value, class)
 import Html.Events exposing (..)
-import Login.Type exposing (..)
+import Login.Types exposing (..)
 
 
 -- import State exposing (..)

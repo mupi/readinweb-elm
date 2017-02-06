@@ -1,9 +1,9 @@
-module Type exposing (..)
+module Types exposing (..)
 
 import Navigation exposing (Location)
 import Routing
-import User.Type as User
-import Login.Type as Login
+import User.Types as User
+import Login.Types as Login
 
 
 type alias Model =

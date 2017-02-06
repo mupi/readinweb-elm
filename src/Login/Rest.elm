@@ -3,7 +3,7 @@ module Login.Rest exposing (..)
 import Http exposing (..)
 import Json.Decode as Decode exposing (field)
 import Json.Encode as Encode exposing (Value, encode, object, string)
-import Login.Type exposing (..)
+import Login.Types exposing (..)
 import User.Rest as User
 
 

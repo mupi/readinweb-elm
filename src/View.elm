@@ -3,7 +3,7 @@ module View exposing (..)
 import Html exposing (..)
 import Html.Attributes exposing (..)
 import Html.Events exposing (..)
-import Type exposing (..)
+import Types exposing (..)
 import Login.View as Login
 import User.View as User
 import Routing exposing (Route(..))

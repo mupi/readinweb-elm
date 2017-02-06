@@ -2,7 +2,7 @@ module Main exposing (..)
 
 import View exposing (view)
 import State exposing (init, update, subscriptions)
-import Type exposing (Model, Msg(..))
+import Types exposing (Model, Msg(..))
 import Navigation exposing (program)
 
 
