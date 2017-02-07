@@ -3,7 +3,7 @@ module Question.Rest exposing (..)
 import Http
 import Json.Decode as Decode exposing (field)
 import Json.Decode.Pipeline exposing (decode, required, optional)
-import Question.Type exposing (..)
+import Question.Types exposing (..)
 
 
 url : QuestionId -> String

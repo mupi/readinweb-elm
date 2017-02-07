@@ -1,4 +1,4 @@
-module Question.Type exposing (..)
+module Question.Types exposing (..)
 
 import Http
 

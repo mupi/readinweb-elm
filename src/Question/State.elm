@@ -1,7 +1,7 @@
 module Question.State exposing (init, update)
 
 import Http
-import Question.Type exposing (..)
+import Question.Types exposing (..)
 import Question.Rest exposing (fetchGet)
 
 
