@@ -3,6 +3,7 @@ module Question.State exposing (init, update)
 import Http
 import Question.Types exposing (..)
 import Question.Rest exposing (fetchGet)
+import App.Types as App
 
 
 init : Model
@@ -22,11 +23,11 @@ init =
         ""
 
 
-update : Msg -> Model -> ( Model, Cmd Msg )
-update msg model =
+update : Msg -> Model -> App.Global -> ( Model, Cmd Msg )
+update msg model global =
     case msg of
         GetUser questionId ->
-            model ! [ fetchGet questionId ]
+            model ! [ fetchGet questionId global.token ]
 
         OnFetchGet (Ok question) ->
             { model | question = question, error = "" } ! []

@@ -17,7 +17,7 @@ type alias Model =
 
 type alias Global =
     { user : Maybe User.Model
-    , token : String
+    , token : Maybe String
     }
 
 

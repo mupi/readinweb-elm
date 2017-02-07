@@ -38,11 +38,29 @@ questionDecoder =
         |> optional "answers" (Decode.list answerDecoder) []
 
 
-getQuestion : QuestionId -> Http.Request Question
-getQuestion questionId =
-    Http.get (url questionId) questionDecoder
+headerBuild : Maybe String -> List Http.Header
+headerBuild token =
+    case token of
+        Just token ->
+            [ Http.header "Authorization" (String.concat [ "JWT ", token ]) ]
+
+        Nothing ->
+            []
 
 
-fetchGet : QuestionId -> Cmd Msg
-fetchGet questionId =
-    Http.send OnFetchGet (getQuestion questionId)
+getQuestion : QuestionId -> Maybe String -> Http.Request Question
+getQuestion questionId token =
+    Http.request
+        { method = "GET"
+        , headers = (headerBuild token)
+        , url = (url questionId)
+        , body = Http.emptyBody
+        , expect = (Http.expectJson questionDecoder)
+        , timeout = Nothing
+        , withCredentials = False
+        }
+
+
+fetchGet : QuestionId -> Maybe String -> Cmd Msg
+fetchGet questionId token =
+    Http.send OnFetchGet (getQuestion questionId token)

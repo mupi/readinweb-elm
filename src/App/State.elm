@@ -19,7 +19,7 @@ init location =
             Login.init
             Question.init
             currentRoute
-            (Global Nothing "")
+            (Global Nothing Nothing)
           )
         , Cmd.none
         )
@@ -57,7 +57,7 @@ update msg model =
 
                 newGlobal =
                     if updatedLogin.user == Nothing then
-                        Global Nothing ""
+                        Global Nothing Nothing
                     else
                         Global updatedLogin.user updatedLogin.token
 
@@ -72,7 +72,7 @@ update msg model =
         QuestionMsg subMsg ->
             let
                 ( updatedQuestion, cmd ) =
-                    Question.update subMsg model.question
+                    Question.update subMsg model.question model.global
             in
                 ( { model | question = updatedQuestion }, Cmd.map QuestionMsg cmd )
 
@@ -86,7 +86,7 @@ update msg model =
                         QuestionRoute questionId ->
                             let
                                 ( updatedQuestion, cmd ) =
-                                    Question.update (Question.GetUser questionId) model.question
+                                    Question.update (Question.GetUser questionId) model.question model.global
                             in
                                 ( { model | question = updatedQuestion }, Cmd.map QuestionMsg cmd )
 

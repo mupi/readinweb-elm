@@ -7,7 +7,7 @@ import Login.Rest exposing (..)
 
 init : Model
 init =
-    Model Nothing "" "" "" ""
+    Model Nothing "" "" Nothing ""
 
 
 update : Msg -> Model -> ( Model, Cmd Msg )
@@ -26,7 +26,7 @@ update msg model =
             ( init, Cmd.none )
 
         OnFetchLogin (Ok login) ->
-            { model | user = Just login.user, token = login.token, error = "" } ! []
+            { model | user = Just login.user, token = Just login.token, error = "" } ! []
 
         OnFetchLogin (Err error) ->
             let
