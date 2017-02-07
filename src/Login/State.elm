@@ -3,12 +3,11 @@ module Login.State exposing (init, update)
 import Http
 import Login.Types exposing (..)
 import Login.Rest exposing (..)
-import User.State as User
 
 
 init : Model
 init =
-    Model User.init "" "" "" ""
+    Model Nothing "" "" "" ""
 
 
 update : Msg -> Model -> ( Model, Cmd Msg )
@@ -23,8 +22,11 @@ update msg model =
         Login ->
             ( model, fetchLogin model )
 
+        Logout ->
+            ( init, Cmd.none )
+
         OnFetchLogin (Ok login) ->
-            { model | user = login.user, token = login.token, error = "" } ! []
+            { model | user = Just login.user, token = login.token, error = "" } ! []
 
         OnFetchLogin (Err error) ->
             let

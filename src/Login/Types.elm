@@ -5,7 +5,7 @@ import User.Types as User
 
 
 type alias Model =
-    { user : User.Model
+    { user : Maybe User.Model
     , username : String
     , password : String
     , token : String
@@ -23,5 +23,6 @@ type Msg
     = SetUsername String
     | SetPassword String
     | Login
+    | Logout
     | OnFetchLogin (Result Http.Error LoginModel)
     | NoOp

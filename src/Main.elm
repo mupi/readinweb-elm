@@ -1,8 +1,8 @@
 module Main exposing (..)
 
-import View exposing (view)
-import State exposing (init, update, subscriptions)
-import Types exposing (Model, Msg(..))
+import App.View exposing (view)
+import App.State exposing (init, update, subscriptions)
+import App.Types exposing (Model, Msg(..))
 import Navigation exposing (program)
 
 

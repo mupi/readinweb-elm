@@ -12,8 +12,15 @@ url =
     "http://localhost:8000/rest/auth/login/"
 
 
-loginJson : Model -> Value
-loginJson model =
+loginDecoder : Decode.Decoder LoginModel
+loginDecoder =
+    Decode.map2 LoginModel
+        (field "user" User.userDecoder)
+        (field "token" Decode.string)
+
+
+loginEncoder : Model -> Value
+loginEncoder model =
     object
         [ ( "username", string model.username )
         , ( "password", string model.password )
@@ -22,7 +29,7 @@ loginJson model =
 
 bodyBuild : Model -> Body
 bodyBuild model =
-    stringBody "application/json" (encode 0 (loginJson model))
+    stringBody "application/json" (encode 0 (loginEncoder model))
 
 
 postLogin : Model -> Http.Request LoginModel
@@ -33,10 +40,3 @@ postLogin model =
 fetchLogin : Model -> Cmd Msg
 fetchLogin model =
     Http.send OnFetchLogin (postLogin model)
-
-
-loginDecoder : Decode.Decoder LoginModel
-loginDecoder =
-    Decode.map2 LoginModel
-        (field "user" User.userDecoder)
-        (field "token" Decode.string)
