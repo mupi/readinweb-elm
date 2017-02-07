@@ -1,7 +1,7 @@
 {
   "name": "beginner",
   "version": "1.0.0",
-  "description": "Elm app for Read in Web course",
+  "description": "Elm app for MP project",
   "main": "bundle.js",
   "devDependencies": {
     "clear": "0.0.1",

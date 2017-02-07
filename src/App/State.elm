@@ -7,6 +7,7 @@ import Login.State as Login
 import Question.State as Question
 import Question.Types as Question
 import User.State as User
+import Material
 
 
 init : Location -> ( Model, Cmd Msg )
@@ -14,12 +15,16 @@ init location =
     let
         currentRoute =
             parseLocation Nothing location
+
+        mdl =
+            Material.model
     in
         ( (Model
             Login.init
             Question.init
             currentRoute
             (Global Nothing Nothing)
+            mdl
           )
         , Cmd.none
         )
@@ -110,6 +115,9 @@ update msg model =
 
         ShowUser ->
             ( model, Navigation.newUrl "#users" )
+
+        Mdl msg_ ->
+            Material.update Mdl msg_ model
 
 
 subscriptions : Model -> Sub Msg

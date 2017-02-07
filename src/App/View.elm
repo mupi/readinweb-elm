@@ -10,6 +10,7 @@ import Question.View as Question
 import Question.Types as Question
 import User.View as User
 import App.Routing exposing (Route(..))
+import Material
 
 
 view : Model -> Html Msg
