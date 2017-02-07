@@ -3,7 +3,6 @@ module Login.State exposing (init, update)
 import Http
 import Login.Types exposing (..)
 import Login.Rest exposing (..)
-import User.State as User
 
 
 init : Model
