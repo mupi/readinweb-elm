@@ -1,6 +1,6 @@
 module User.State exposing (init, update)
 
-import User.Type exposing (..)
+import User.Types exposing (..)
 
 
 init : Model

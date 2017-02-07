@@ -1,7 +1,7 @@
-module Login.Type exposing (..)
+module Login.Types exposing (..)
 
 import Http
-import User.Type as User
+import User.Types as User
 
 
 type alias Model =

@@ -1,6 +1,6 @@
 module State exposing (init, update, subscriptions)
 
-import Type exposing (..)
+import Types exposing (..)
 import Navigation exposing (Location)
 import User.State as User
 import Login.State as Login

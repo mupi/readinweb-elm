@@ -1,4 +1,4 @@
-module User.Type exposing (..)
+module User.Types exposing (..)
 
 
 type alias Model =

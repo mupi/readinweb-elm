@@ -2,7 +2,7 @@ module User.Rest exposing (..)
 
 import Http
 import Json.Decode as Decode exposing (field)
-import User.Type exposing (Model)
+import User.Types exposing (Model)
 
 
 usersDecoder : Decode.Decoder (List Model)
