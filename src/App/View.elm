@@ -81,7 +81,7 @@ header model =
                         ]
                         [ text "Home" ]
                     , Button.render Mdl
-                        [ 0 ]
+                        [ 1 ]
                         model.mdl
                         [ Button.flat
                         , Button.plain
@@ -93,9 +93,7 @@ header model =
             ]
         else
             [ Layout.row
-                [ Options.nop
-                , css "transition" "height 333ms ease-in-out 0s"
-                ]
+                [ Options.nop ]
                 [ Layout.link
                     [ Layout.href "/" ]
                     [ Layout.title [] [ text "MupiLab" ] ]
@@ -110,7 +108,7 @@ header model =
                         ]
                         [ text "Home" ]
                     , Button.render Mdl
-                        [ 0 ]
+                        [ 1 ]
                         model.mdl
                         [ Button.flat
                         , Button.plain
@@ -118,7 +116,7 @@ header model =
                         ]
                         [ text "My account" ]
                     , Button.render Mdl
-                        [ 0 ]
+                        [ 2 ]
                         model.mdl
                         [ Button.flat
                         , Button.plain
