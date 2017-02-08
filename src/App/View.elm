@@ -11,14 +11,22 @@ import Question.Types as Question
 import User.View as User
 import App.Routing exposing (Route(..))
 import Material
+import Material.Button as Button
+import Material.Options as Options exposing (css)
+import Material.Layout as Layout
 
 
 view : Model -> Html Msg
 view model =
-    div []
-        [ header model
-        , page model
+    Layout.render Mdl
+        model.mdl
+        [ Layout.fixedHeader
         ]
+        { header = header model
+        , drawer = []
+        , tabs = ( [], [] )
+        , main = [ page model ]
+        }
 
 
 page : Model -> Html Msg
@@ -48,25 +56,78 @@ page model =
             notFoundView
 
 
-header : Model -> Html Msg
+header : Model -> List (Html Msg)
 header model =
     let
         user =
             model.global.user
     in
         if user == Nothing then
-            div []
-                [ button [ onClick ShowIndex ] [ text "Index" ]
-                , button [ onClick ShowLogin ] [ text "Login" ]
-                , text (toString model)
+            [ Layout.row
+                [ Options.nop
+                , css "transition" "height 333ms ease-in-out 0s"
                 ]
+                [ Layout.link
+                    [ Layout.href "/" ]
+                    [ Layout.title [] [ text "MupiLab" ] ]
+                , Layout.spacer
+                , Layout.navigation []
+                    [ Button.render Mdl
+                        [ 0 ]
+                        model.mdl
+                        [ Button.flat
+                        , Button.plain
+                        , Options.onClick ShowIndex
+                        ]
+                        [ text "Home" ]
+                    , Button.render Mdl
+                        [ 0 ]
+                        model.mdl
+                        [ Button.flat
+                        , Button.plain
+                        , Options.onClick ShowLogin
+                        ]
+                        [ text "Login" ]
+                    ]
+                ]
+            ]
         else
-            div []
-                [ button [ onClick ShowIndex ] [ text "Index" ]
-                , button [ onClick ShowUser ] [ text "User" ]
-                , button [ onClick (LoginMsg Login.Logout) ] [ text "Logout" ]
-                , text (toString model)
+            [ Layout.row
+                [ Options.nop
+                , css "transition" "height 333ms ease-in-out 0s"
                 ]
+                [ Layout.link
+                    [ Layout.href "/" ]
+                    [ Layout.title [] [ text "MupiLab" ] ]
+                , Layout.spacer
+                , Layout.navigation []
+                    [ Button.render Mdl
+                        [ 0 ]
+                        model.mdl
+                        [ Button.flat
+                        , Button.plain
+                        , Options.onClick ShowIndex
+                        ]
+                        [ text "Home" ]
+                    , Button.render Mdl
+                        [ 0 ]
+                        model.mdl
+                        [ Button.flat
+                        , Button.plain
+                        , Options.onClick ShowUser
+                        ]
+                        [ text "My account" ]
+                    , Button.render Mdl
+                        [ 0 ]
+                        model.mdl
+                        [ Button.flat
+                        , Button.plain
+                        , Options.onClick (LoginMsg Login.Logout)
+                        ]
+                        [ text "Logout" ]
+                    ]
+                ]
+            ]
 
 
 index : Html Msg
@@ -81,5 +142,5 @@ notFoundView =
             Debug.log "location" 1
     in
         div []
-            [ text "Not found!!"
+            [ text "404 - Page Not found!"
             ]
