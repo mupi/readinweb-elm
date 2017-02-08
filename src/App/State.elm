@@ -86,7 +86,14 @@ update msg model =
                         QuestionRoute questionId ->
                             let
                                 ( updatedQuestion, cmd ) =
-                                    Question.update (Question.GetUser questionId) model.question model.global
+                                    Question.update (Question.GetQuestion questionId) model.question model.global
+                            in
+                                ( { model | question = updatedQuestion }, Cmd.map QuestionMsg cmd )
+
+                        QuestionPageRoute page ->
+                            let
+                                ( updatedQuestion, cmd ) =
+                                    Question.update (Question.GetQuestionPage page) model.question model.global
                             in
                                 ( { model | question = updatedQuestion }, Cmd.map QuestionMsg cmd )
 

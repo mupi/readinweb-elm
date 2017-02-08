@@ -11,6 +11,7 @@ type Route
     | UsersRoute
     | LoginRoute
     | QuestionRoute Question.QuestionId
+    | QuestionPageRoute Question.PageNumber
     | NotFoundRote
 
 
@@ -19,8 +20,9 @@ normalMatchers =
     oneOf
         [ map Index top
         , map Index (s "index")
-        , map QuestionRoute (s "questions" </> int)
         , map LoginRoute (s "login")
+        , map QuestionPageRoute (s "questions" </> int)
+        , map QuestionRoute (s "question" </> int)
         ]
 
 
@@ -31,29 +33,26 @@ loginMatchers =
         , map Index (s "index")
         , map Index (s "login")
         , map QuestionRoute (s "questions" </> int)
+        , map QuestionRoute (s "question" </> int)
         , map UsersRoute (s "users")
         ]
 
 
 parseLocation : Maybe a -> Location -> Route
 parseLocation user location =
-    let
-        one =
-            Debug.log "location" location
-    in
-        case user of
-            Just user ->
-                case (parseHash loginMatchers location) of
-                    Just route ->
-                        route
+    case user of
+        Just user ->
+            case (parseHash loginMatchers location) of
+                Just route ->
+                    route
 
-                    Nothing ->
-                        NotFoundRote
+                Nothing ->
+                    NotFoundRote
 
-            Nothing ->
-                case (parseHash normalMatchers location) of
-                    Just route ->
-                        route
+        Nothing ->
+            case (parseHash normalMatchers location) of
+                Just route ->
+                    route
 
-                    Nothing ->
-                        NotFoundRote
+                Nothing ->
+                    NotFoundRote
