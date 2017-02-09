@@ -40,6 +40,9 @@ page model =
         QuestionRoute questionId ->
             Html.map QuestionMsg (Question.view model.question)
 
+        QuestionPageRoute questionId ->
+            Html.map QuestionMsg (Question.viewQuestionPage model.question)
+
         NotFoundRote ->
             notFoundView
 

@@ -8,7 +8,7 @@ type alias Model =
     { user : Maybe User.Model
     , username : String
     , password : String
-    , token : String
+    , token : Maybe String
     , error : String
     }
 
