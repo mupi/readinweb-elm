@@ -2,6 +2,7 @@ module Login.Types exposing (..)
 
 import Http
 import User.Types as User
+import Material
 
 
 type alias Model =
@@ -10,6 +11,7 @@ type alias Model =
     , password : String
     , token : Maybe String
     , error : String
+    , mdl : Material.Model
     }
 
 
@@ -26,3 +28,4 @@ type Msg
     | Logout
     | OnFetchLogin (Result Http.Error LoginModel)
     | NoOp
+    | Mdl (Material.Msg Msg)

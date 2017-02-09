@@ -3,11 +3,12 @@ module Login.State exposing (init, update)
 import Http
 import Login.Types exposing (..)
 import Login.Rest exposing (..)
+import Material
 
 
 init : Model
 init =
-    Model Nothing "" "" Nothing ""
+    Model Nothing "" "" Nothing "" Material.model
 
 
 update : Msg -> Model -> ( Model, Cmd Msg )
@@ -36,7 +37,7 @@ update msg model =
                             "Erro de conexão com o servidor"
 
                         Http.BadStatus response ->
-                            "Usuário e/ou senha inválido(s)"
+                            "Usuário e/ou senha inválido(s)!"
 
                         _ ->
                             "Erro indefinido"
@@ -45,3 +46,6 @@ update msg model =
 
         NoOp ->
             model ! []
+
+        Mdl msg_ ->
+            Material.update Mdl msg_ model
